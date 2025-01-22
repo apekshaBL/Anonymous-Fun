@@ -2,7 +2,6 @@ import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User.model";
 import bcryptjs from "bcryptjs";
-import { verify } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest){
@@ -17,13 +16,9 @@ export async function POST(req:NextRequest){
                 return Response.json( {
                         success:false,
                         message:"Username is already taken"
-                    },
-                    {
-                        status:400
-                    }
+                    }, { status:400}
                 )
         }
-
         const existingUserVerifiedByemail=await UserModel.findOne({
             email
         })
@@ -71,7 +66,6 @@ export async function POST(req:NextRequest){
                 {
                     success:false,
                     message:emailResponse.message
-
                 },{
                     status:500
                 }

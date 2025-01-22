@@ -1,73 +1,70 @@
-import mongoose , {Schema,Document} from "mongoose";
+import mongoose , {Schema , Document, model} from "mongoose";
 
 export interface Message extends Document{
-     content:String;
-     createdAt:Date
+    content : string;
+    createdAt:Date;
 }
 
-const MessageSchema:Schema<Message>=new Schema({
-    content:{
-        type:String,
-        required:true
+const MessageSchema : Schema<Message> = new Schema({
+    content: {
+        type: String,
+        required: true
     },
-    createdAt:{
-        type:Date,
+    createdAt: {
+        type: Date,
         required:true,
-        default:Date.now
+        default: Date.now
     }
-
 })
 
 export interface User extends Document{
-    username:String;
-    email:String;
-    password:String;
-    verifyCode:String;
-    isVerified:Boolean;
-    verifyCodeExpiry:Date;
-    isAcceptMessage:Boolean;
-    messages:Message[]
+    username:string;
+    email:string;
+    password:string;
+    verifyCode:string;
+    VerifyCodeExpiry:Date;
+    isVerified:boolean;
+    isAcceptingMessage: boolean;
+    messages: Message[]
 }
 
-const UserSchema:Schema<User>=new Schema({
-    username:{
-        type:String,
-        required:[true,"Username is required"],
+const userSchema : Schema<User> = new Schema({
+    username: {
+        type: String,
+        required: [true , "UserName is required"],
         trim:true,
-        unique:true
+        unique: true
     },
-    email:{
-        type:String,
-        required:[true,"email is required"],
-        unique:true,
-        match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ ,"please use valid email address"]
+    email: {
+        type: String,
+        required:[true , "Email is required"],
+        match:[/.+\@.+\..+/ , 'Please enter a valid email address'],
+        unique: true
     },
-    password:{
-        type:String,
-        required:[true,"pasword is required"],
-        trim:true
+    password: {
+        type: String,
+        required:[true , "Password is required"],
     },
-    verifyCode:{
-        type:String,
-        required:[true,"enter verification code"],
-        unique:true
+    verifyCode: {
+        type: String,
+        required:[true , "Verify code is required"],
     },
-    isVerified:{
-        type:Boolean,
-        default:false
+    VerifyCodeExpiry: {
+        type: Date,
+        required:[true , "Verify code expiry is required"],
+    }, 
+    isVerified: {
+        type: Boolean,
+        default: false
     },
-    verifyCodeExpiry:{
-        type:Date,
-        required:[true,"verification code Expiry is required"],
+    isAcceptingMessage: {
+        type: Boolean,
+        default: true
     },
-    isAcceptMessage:{
-        type:Boolean,
-        default:true
-    },
-    messages:[MessageSchema]
-
+    messages: [MessageSchema]
 })
 
-const UserModel=(mongoose.models.User as mongoose.Model<User>)|| mongoose.model<User>("User",UserSchema);   
+
+const UserModel= (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>('User' , userSchema)
 
 export default UserModel;
