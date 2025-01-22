@@ -12,13 +12,6 @@ const UsernameQuerySchema=z.object(
 
 export async function GET(request:NextRequest){
     await dbConnect();
-    if(request.method!=='GET'){
-         return Response.json({
-            success:false,
-            message:"method not allowed pass get method"
-         },{status:405})
-    }
-   
     try{
         const {searchParams}=new URL(request.url)
         const queryParam={
