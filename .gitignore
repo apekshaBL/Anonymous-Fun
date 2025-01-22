@@ -1,4 +1,32 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# IDE & Editor settings (if you're using VSCode, WebStorm, etc.)
+.vscode/
+.idea/
+
+# Yarn lock file (if you're using npm instead)
+yarn.lock
+
+# npm lock file (if you're using Yarn instead)
+package-lock.json
+
+# Local history or temp files
+/.history/
+
+# Logs from running tests or applications
+*.log
+*.log.*
+
+# macOS Finder folder settings
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+
+# SASS temporary files
+.sass-cache/
+
+# JetBrains IDE temporary files
+*.iml
 
 # dependencies
 /node_modules
