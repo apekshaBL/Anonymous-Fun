@@ -40,6 +40,10 @@ export async function GET(request:NextRequest){
 
     }
     catch(error){
-
+        console.log("unaccepted error occured",error);
+        return Response.json({
+            success:false,
+            message:"Not Authenticated"
+        },{status:500})
     }
 }
